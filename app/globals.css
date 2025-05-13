@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-black  leading-normal;
+  }
+  .h3 {
+    @apply text-[22px] lg:text-[32px] font-bold;
+  }
+  .btn {
+    @apply h-[60px] px-4 rounded-full hover:bg-blue-hover transition flex items-center text-lg font-medium outline-none;
+  }
+  .section {
+    @apply py-12 lg:py-24;
+  }
+  .section-title {
+    @apply text-2xl lg:text-[40px] font-bold leading-normal mb-6;
+  }
+  .section-subtitle {
+    @apply mt-6 mb-8 text-gray;
+  }
+  .input,
+  .select {
+    @apply outline-none w-full border-b border-gray text-darkblue h-[38px] text-xl;
+  }
+  .input {
+    @apply lg:max-w-[410px] bg-transparent;
+  }
+  .select {
+    @apply lg:max-w-[200px] cursor-pointer;
+  }
+  .testimonial-cloud {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 200px; /* a little wider so the curve is more pronounced */
+    pointer-events: none;
+    z-index: 20;
+
+    /* subtle blur behind the mask */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* LEFT: pill-shaped mask over the cards */
+  .cloud-left {
+    left: -20px; /* pull it in over the cards */
+    background: radial-gradient(
+      circle 300px at 100% 50%,
+      /* big circle centered on the right edge */ rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0) 60%
+    );
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+  }
+
+  /* RIGHT: mirror of left */
+  .cloud-right {
+    right: -20px;
+    background: radial-gradient(
+      circle 300px at 0% 50%,
+      /* big circle centered on the left edge */ rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0) 60%
+    );
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+  }
+}
