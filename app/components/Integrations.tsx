@@ -1,8 +1,29 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 
-const Integrations = () => {
-  type testJobs = {
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.15, type: "spring", stiffness: 100 },
+  }),
+  hover: {
+    scale: 1.015,
+    boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+  },
+};
+
+const arrowVariants = {
+  rest: { x: 0 },
+  hover: { x: 4 },
+};
+
+const Integrations: React.FC = () => {
+  type TestJob = {
     id: number;
     company: string;
     role: string;
@@ -10,7 +31,8 @@ const Integrations = () => {
     buttonText: string;
     image: string;
   };
-  const TestJobs: testJobs[] = [
+
+  const TestJobs: TestJob[] = [
     {
       id: 1,
       company: "Slack",
@@ -18,9 +40,8 @@ const Integrations = () => {
       description:
         "Notify your teammates of the latest activities with instant Slack messages.",
       buttonText: "Apply Now",
-      image: "./Jobs/Job1.svg",
+      image: "/Jobs/Job1.svg",
     },
-
     {
       id: 2,
       company: "Salesforce",
@@ -28,7 +49,7 @@ const Integrations = () => {
       description:
         "Leave a lasting impression all done inside Salesforce CPQ platform.",
       buttonText: "Apply Now",
-      image: "./Jobs/Job2.svg",
+      image: "/Jobs/Job2.svg",
     },
     {
       id: 3,
@@ -37,9 +58,8 @@ const Integrations = () => {
       description:
         "Collect credit card and ACH payments within your sales documents",
       buttonText: "Apply Now",
-      image: "./Jobs/Job3.svg",
+      image: "/Jobs/Job3.svg",
     },
-
     {
       id: 4,
       company: "PayPal",
@@ -47,9 +67,8 @@ const Integrations = () => {
       description:
         "Provide a world-class checkout experience for your customers.",
       buttonText: "Apply Now",
-      image: "./Jobs/Job5.svg",
+      image: "/Jobs/Job5.svg",
     },
-
     {
       id: 5,
       company: "Zapier",
@@ -57,7 +76,7 @@ const Integrations = () => {
       description:
         "Create custom, automated workflows using your favorite Zaps.",
       buttonText: "Apply Now",
-      image: "./Jobs/Job6.svg",
+      image: "/Jobs/Job6.svg",
     },
     {
       id: 6,
@@ -66,67 +85,86 @@ const Integrations = () => {
       description:
         "Expand the ROI from your CRM and unlock easy generation and capabilities.",
       buttonText: "Apply Now",
-      image: "./Jobs/Job4.svg",
+      image: "/Jobs/Job4.svg",
     },
   ];
+
   return (
-    <div className=" bg-[#F5EEE9] mt-[50px] ">
-      <section className="container mx-auto max-w-[1200px] py-[30px]">
-        <div className=" py-[50px] flex flex-col  text-center justify-center">
-          <h1 className="font-semibold text-[32px] md:text-[47px] leading-[1.2] tracking-tight">
+    <div className="bg-[#F5EEE9] mt-12">
+      <section className="container mx-auto max-w-[1200px] py-12 px-4">
+        <div className="mb-12 text-center">
+          <h1 className="font-semibold text-[32px] md:text-[47px] leading-tight">
             Boost your efficiency with integrations
           </h1>
-          <p className="pt-[10px] text-[#636669] ">
+          <p className="mt-2 text-[#636669]">
             Connect every part of your business with integrations that will
             simplify your workflow.
           </p>
         </div>
-        <div className="grid  grid-cols-1  md:grid-cols-2 lg:grid-cols-3   gap-8 mb-16">
-          {TestJobs.map((job) => (
-            <div key={job.id} className="">
-              <div className="bg-white overflow-y-hidden min-h-[242px] p-6 rounded-[16px] ">
-                <div className="flex justify-between mb-[23.5px]">
-                  <div className="">
-                    <h1 className="text-[#212529] font-semibold text-[19px]">
-                      {job.company}
-                    </h1>
-                    <h2 className="text-[#636669] text-[13px]">{job.role}</h2>
-                  </div>
-                  <div>
-                    <Image
-                      src={job.image}
-                      alt="company logos"
-                      width={40}
-                      height={40}
-                    />
-                  </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {TestJobs.map((job, i) => (
+            <motion.div
+              key={job.id}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              whileHover="hover"
+              variants={cardVariants}
+              className="rounded-[16px] overflow-hidden bg-white min-h-[242px] p-6"
+            >
+              <div className="flex justify-between mb-6">
+                <div>
+                  <h2 className="text-[#212529] font-semibold text-lg">
+                    {job.company}
+                  </h2>
+                  <h3 className="text-[#636669] text-sm">{job.role}</h3>
                 </div>
-                <div className=" max-w-[264px] text-[#636669]  text-[15px] mb-[32px]">
-                  {job.description}
-                </div>
-                <button className="text-[#14715B] flex gap-x-1 items-center  font-semibold text-[14px]">
-                  {job.buttonText}
+                <Image
+                  src={job.image}
+                  alt={`${job.company} logo`}
+                  width={40}
+                  height={40}
+                />
+              </div>
+              <p className="max-w-[264px] text-[#636669] text-base mb-8">
+                {job.description}
+              </p>
+              <motion.button
+                initial="rest"
+                whileHover="hover"
+                variants={arrowVariants}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="text-[#14715B] flex items-center gap-2 font-semibold text-sm"
+              >
+                {job.buttonText}
+                <motion.div variants={arrowVariants}>
                   <Image
                     src="/Jobs/Arrow.svg"
-                    alt="job explore icon "
+                    alt="arrow icon"
                     width={16}
                     height={16}
                   />
-                </button>
-              </div>
-            </div>
+                </motion.div>
+              </motion.button>
+            </motion.div>
           ))}
         </div>
-        <div className="flex text-center justify-center">
-          <button className="text-[#14715B] flex gap-x-1 items-center  font-semibold text-[16px]">
+
+        <div className="flex justify-center">
+          <motion.button
+            whileHover={{ x: 4 }}
+            className="text-[#14715B] flex items-center gap-2 font-semibold text-base"
+          >
             Browse More Jobs
             <Image
               src="/Jobs/Arrow.svg"
-              alt="job explore icon "
+              alt="job explore icon"
               width={16}
               height={16}
             />
-          </button>
+          </motion.button>
         </div>
       </section>
     </div>

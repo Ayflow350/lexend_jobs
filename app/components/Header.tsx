@@ -3,6 +3,7 @@ import { Menu } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import Sidebar from "./Sidebar";
+import Link from "next/link";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -39,12 +40,12 @@ const Header = () => {
             </div>
 
             {/* Desktop actions */}
-            <div className="hidden lg:flex items-center gap-x-4">
+            <div className="hidden lg:flex items-center gap-x-4 cursor-pointer">
               <ul className="flex gap-x-8">
-                <li>Log in</li>
+                <Link href="/sign-in">Log in</Link>
               </ul>
-              <button className="bg-green py-2 px-4 rounded-md">
-                Start free trial
+              <button className="bg-green py-2 px-4 rounded-md cursor-pointer">
+                <Link href="/Onboarding">Start free trial</Link>
               </button>
             </div>
 
