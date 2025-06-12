@@ -1,0 +1,151 @@
+[
+  {
+    "value": "accounting-consulting",
+    "label": "Accounting & Consulting",
+    "specialties": [
+      { "value": "accounting", "label": "Accounting & Bookkeeping" },
+      {
+        "value": "financial-planning",
+        "label": "Financial Planning & Analysis"
+      },
+      { "value": "management-consulting", "label": "Management Consulting" },
+      { "value": "human-resources", "label": "Human Resources" },
+      { "value": "tax-preparation", "label": "Tax Preparation" },
+      { "value": "financial-modeling", "label": "Financial Modeling" }
+    ]
+  },
+  {
+    "value": "admin-support",
+    "label": "Admin Support",
+    "specialties": [
+      { "value": "virtual-assistant", "label": "Virtual Assistant" },
+      { "value": "data-entry", "label": "Data Entry" },
+      { "value": "transcription", "label": "Transcription" },
+      { "value": "project-management", "label": "Project Management" },
+      { "value": "online-research", "label": "Online Research" }
+    ]
+  },
+  {
+    "value": "customer-service",
+    "label": "Customer Service",
+    "specialties": [
+      { "value": "customer-support", "label": "Customer Support" },
+      { "value": "technical-support", "label": "Technical Support" },
+      { "value": "email-support", "label": "Email, Phone & Chat Support" },
+      { "value": "community-management", "label": "Community Management" },
+      { "value": "customer-success", "label": "Customer Success Management" }
+    ]
+  },
+  {
+    "value": "data-science-analytics",
+    "label": "Data Science & Analytics",
+    "specialties": [
+      { "value": "data-analytics", "label": "Data Analytics" },
+      { "value": "machine-learning", "label": "Machine Learning" },
+      { "value": "data-visualization", "label": "Data Visualization" },
+      { "value": "data-engineering", "label": "Data Engineering & ETL" },
+      { "value": "deep-learning", "label": "Deep Learning" }
+    ]
+  },
+  {
+    "value": "design-creative",
+    "label": "Design & Creative",
+    "specialties": [
+      { "value": "graphic-design", "label": "Graphic Design" },
+      { "value": "ui-ux-design", "label": "UI/UX Design" },
+      { "value": "video-editing", "label": "Video Editing & Production" },
+      { "value": "logo-design", "label": "Logo Design & Branding" },
+      { "value": "illustration", "label": "Illustration" },
+      { "value": "motion-graphics", "label": "Motion Graphics" }
+    ]
+  },
+  {
+    "value": "engineering-architecture",
+    "label": "Engineering & Architecture",
+    "specialties": [
+      { "value": "3d-modeling", "label": "3D Modeling & CAD" },
+      {
+        "value": "civil-engineering",
+        "label": "Civil & Structural Engineering"
+      },
+      { "value": "mechanical-engineering", "label": "Mechanical Engineering" },
+      { "value": "electrical-engineering", "label": "Electrical Engineering" },
+      { "value": "interior-design", "label": "Interior Design" }
+    ]
+  },
+  {
+    "value": "it-networking",
+    "label": "IT & Networking",
+    "specialties": [
+      { "value": "network-admin", "label": "Network Administration" },
+      { "value": "cybersecurity", "label": "Cybersecurity & Ethical Hacking" },
+      {
+        "value": "cloud-engineering",
+        "label": "Cloud Engineering (AWS, Azure, GCP)"
+      },
+      { "value": "devops", "label": "DevOps Engineering" },
+      { "value": "it-support", "label": "IT Support" }
+    ]
+  },
+  {
+    "value": "legal",
+    "label": "Legal",
+    "specialties": [
+      { "value": "paralegal-services", "label": "Paralegal Services" },
+      { "value": "contract-law", "label": "Contract Law" },
+      { "value": "corporate-law", "label": "Corporate Law" },
+      { "value": "legal-research", "label": "Legal Research & Writing" },
+      { "value": "intellectual-property", "label": "Intellectual Property Law" }
+    ]
+  },
+  {
+    "value": "sales-marketing",
+    "label": "Sales & Marketing",
+    "specialties": [
+      { "value": "seo", "label": "SEO (Search Engine Optimization)" },
+      { "value": "social-media-marketing", "label": "Social Media Marketing" },
+      { "value": "email-marketing", "label": "Email Marketing" },
+      { "value": "lead-generation", "label": "Lead Generation" },
+      { "value": "marketing-strategy", "label": "Marketing Strategy" }
+    ]
+  },
+  {
+    "value": "translation",
+    "label": "Translation",
+    "specialties": [
+      { "value": "general-translation", "label": "General Translation" },
+      { "value": "legal-translation", "label": "Legal Translation" },
+      { "value": "technical-translation", "label": "Technical Translation" },
+      { "value": "medical-translation", "label": "Medical Translation" },
+      { "value": "proofreading", "label": "Proofreading & Editing" }
+    ]
+  },
+  {
+    "value": "web-mobile-software-dev",
+    "label": "Web, Mobile & Software Dev",
+    "specialties": [
+      { "value": "web-development", "label": "Web Development" },
+      { "value": "web-mobile-design", "label": "Web & Mobile Design" },
+      { "value": "ecommerce-development", "label": "Ecommerce Development" },
+      { "value": "mobile-development", "label": "Mobile Development" },
+      { "value": "desktop-dev", "label": "Desktop Application Development" },
+      { "value": "blockchain", "label": "Blockchain, NFT & Cryptocurrency" },
+      { "value": "ai-apps", "label": "AI Apps & Integration" },
+      { "value": "game-dev", "label": "Game Design & Development" },
+      { "value": "product-management", "label": "Product Management & Scrum" },
+      { "value": "qa-testing", "label": "QA Testing" },
+      { "value": "scripts-utilities", "label": "Scripts & Utilities" }
+    ]
+  },
+  {
+    "value": "writing",
+    "label": "Writing",
+    "specialties": [
+      { "value": "content-writing", "label": "Content Writing" },
+      { "value": "copywriting", "label": "Copywriting" },
+      { "value": "technical-writing", "label": "Technical Writing" },
+      { "value": "ghostwriting", "label": "Ghostwriting" },
+      { "value": "resume-writing", "label": "Resume & Cover Letter Writing" }
+    ]
+  }
+]

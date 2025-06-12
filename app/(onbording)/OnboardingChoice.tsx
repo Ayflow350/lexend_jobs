@@ -34,11 +34,11 @@ const OnboardingChoice: React.FC = () => {
     if (selectedRole === "seeker") {
       console.log("Navigating to Job Seeker signup page...");
       // Corrected Path: Assuming your job seeker signup page is at /signup/job-seeker or /JobSeekerSignUp
-      router.push("/CompanySignUp"); // Or your actual path e.g., "/JobSeekerSignUp"
+      router.push("/JobSeekerSignUp"); // Or your actual path e.g., "/JobSeekerSignUp"
     } else if (selectedRole === "company") {
       console.log("Navigating to Company signup page...");
       // Corrected Path: Assuming your company signup page is at /signup/company or /CompanySignUp
-      router.push("/JobSeekerSignUp"); // Or your actual path e.g., "/CompanySignUp"
+      router.push("/CompanySignUp"); // Or your actual path e.g., "/CompanySignUp"
     }
   };
 

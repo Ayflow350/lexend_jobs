@@ -1,13 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { FaApple } from "react-icons/fa"; // FaGoogle might be removed or replaced if full color is needed
+import { FaApple } from "react-icons/fa";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
-// Import a potentially better Google Icon if you have one, or use an SVG
-// For this example, we'll try to color FaGoogle, but an SVG is best for the multi-color logo.
-// You can create a simple GoogleGIcon component with an SVG for the colored 'G'.
-// Example:
+// Utilities and Schemas
+import {
+  // countryList, // No longer directly needed here as Combobox handles it
+  CompanySignupFormData,
+  companySignupSchema,
+} from "@/lib/form-utils"; // ADJUST PATH AS NEEDED
+
+// GoogleGIcon component
 const GoogleGIcon = () => (
   <svg
     width="18"
@@ -37,57 +44,76 @@ const GoogleGIcon = () => (
 // shadcn/ui components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { CountryCombobox } from "@/components/ui/CountryCombobox"; // IMPORT THE COMBOBOX
 
 const CompanySignupPage: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
+  const form = useForm<CompanySignupFormData>({
+    resolver: zodResolver(companySignupSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      country: undefined,
+      sendEmails: false,
+      agreeTerms: false,
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Company signup form submitted");
-  };
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+  const router = useRouter();
+
+  function onSubmit(values: CompanySignupFormData) {
+    console.log("Company signup form submitted with Zod:", values);
+    // TODO: Implement actual signup logic
+
+    router.push("/OnboardingCompany"); // Redirect to onboarding after signup
+  }
+
+  // Ensure this path is correct for your Job Seeker signup page
+  const jobSeekerSignupPath = "/JobSeekerSignUp"; // Or your actual route, e.g., "/JobSeekerSignUp"
 
   return (
     <div className="min-h-screen bg-[#F5EEE9] flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-xl">
+        {/* Top Link */}
         <div className="text-center sm:text-right mb-6 sm:mb-4">
           <span className="text-sm text-gray-600 mr-1">Looking for work?</span>
-          <Link href="/JobSeekerSignUp" legacyBehavior>
+          <Link href={jobSeekerSignupPath} legacyBehavior>
             <a className="font-medium text-green hover:text-green/80 hover:underline">
               Apply as talent
             </a>
           </Link>
         </div>
 
+        {/* Form Card */}
         <div className="bg-white p-8 sm:p-10 rounded-xl shadow-xl">
+          {/* Heading */}
           <div className="text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
               Sign up to <span className="text-green">hire talent</span>
             </h2>
           </div>
 
+          {/* Social Logins */}
           <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
             <Button
               variant="outline"
               className="w-full py-6 text-sm text-gray-700"
             >
-              {" "}
-              {/* Explicitly set text color for contrast */}
-              <FaApple className="h-5 w-5 mr-2 text-black dark:text-white" />{" "}
-              {/* Apple icon color */}
+              <FaApple className="h-5 w-5 mr-2 text-black dark:text-white" />
               Continue with Apple
             </Button>
             <Button
@@ -98,159 +124,198 @@ const CompanySignupPage: React.FC = () => {
             </Button>
           </div>
 
+          {/* OR Separator */}
           <div className="mt-6 flex items-center">
             <Separator className="flex-1" />
             <span className="px-3 text-sm text-gray-500">OR</span>
             <Separator className="flex-1" />
           </div>
 
-          <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
-            <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-6 sm:space-y-0">
-              <div className="flex-1 space-y-1.5">
-                <Label htmlFor="firstName">First name</Label>
-                <Input
-                  id="firstName"
+          {/* Main Signup Form */}
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="mt-6 space-y-6"
+            >
+              {/* First Name and Last Name */}
+              <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-6 sm:space-y-0">
+                <FormField
+                  control={form.control}
                   name="firstName"
-                  type="text"
-                  required
-                  placeholder="John"
-                />
-              </div>
-              <div className="flex-1 space-y-1.5">
-                <Label htmlFor="lastName">Last name</Label>
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  required
-                  placeholder="Doe"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <Label htmlFor="email">Work email address</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                placeholder="you@company.com"
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <Label htmlFor="password">
-                Password{" "}
-                <span className="text-xs text-gray-500">
-                  (8 or more characters)
-                </span>
-              </Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  name="password"
-                  type={passwordVisible ? "text" : "password"}
-                  autoComplete="current-password"
-                  required
-                  placeholder="••••••••"
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-0 h-full px-3 text-gray-500 hover:text-green" // hover to brand green
-                  aria-label={
-                    passwordVisible ? "Hide password" : "Show password"
-                  }
-                >
-                  {passwordVisible ? (
-                    <HiEyeOff className="h-5 w-5" />
-                  ) : (
-                    <HiEye className="h-5 w-5" />
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>First name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
                   )}
-                </Button>
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <Label htmlFor="country">Country</Label>
-              <Select name="country" required>
-                <SelectTrigger id="country" className="w-full">
-                  {" "}
-                  {/* Ensure trigger takes full width */}
-                  <SelectValue placeholder="Select a country" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="us">United States</SelectItem>
-                  <SelectItem value="ca">Canada</SelectItem>
-                  <SelectItem value="gb">United Kingdom</SelectItem>
-                  <SelectItem value="ng">Nigeria</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <Checkbox
-                  id="sendEmails"
-                  name="sendEmails"
-                  className="mt-0.5 border-gray-300 focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
-                  // Relying on --primary (your green) for checked state
                 />
-                <div className="grid gap-1.5 leading-none">
-                  <Label
-                    htmlFor="sendEmails"
-                    className="font-medium text-gray-700 cursor-pointer"
-                  >
-                    Send me emails with tips on how to find talent that fits my
-                    needs.
-                  </Label>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <Checkbox
-                  id="agreeTerms"
-                  name="agreeTerms"
-                  required
-                  className="mt-0.5 border-gray-300 focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Last name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-                <div className="grid gap-1.5 leading-none">
-                  <Label
-                    htmlFor="agreeTerms"
-                    className="text-gray-700 cursor-pointer"
-                  >
-                    Yes, I understand and agree to the{" "}
-                    <Link href="/terms" legacyBehavior>
-                      <a className="font-medium text-green hover:text-green/80 hover:underline">
-                        User Agreement
-                      </a>
-                    </Link>{" "}
-                    and{" "}
-                    <Link href="/privacy" legacyBehavior>
-                      <a className="font-medium text-green hover:text-green/80 hover:underline">
-                        Privacy Policy
-                      </a>
-                    </Link>
-                    .
-                  </Label>
-                </div>
               </div>
-            </div>
 
-            <div>
+              {/* Email */}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Work email address</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="you@company.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Password */}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Password{" "}
+                      <span className="text-xs text-gray-500">
+                        (8+ characters)
+                      </span>
+                    </FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={passwordVisible ? "text" : "password"}
+                          placeholder="••••••••"
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          onClick={togglePasswordVisibility}
+                          className="absolute inset-y-0 right-0 h-full px-3 text-gray-500 hover:text-green"
+                          aria-label={
+                            passwordVisible ? "Hide password" : "Show password"
+                          }
+                        >
+                          {passwordVisible ? (
+                            <HiEyeOff className="h-5 w-5" />
+                          ) : (
+                            <HiEye className="h-5 w-5" />
+                          )}
+                        </Button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Country Combobox */}
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    {" "}
+                    {/* Ensure label and combobox are stacked */}
+                    <FormLabel>Country</FormLabel>
+                    <CountryCombobox
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      placeholder="Select your country"
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Checkboxes */}
+              <FormField
+                control={form.control}
+                name="sendEmails"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="mt-0.5 border-gray-300 focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="font-medium text-gray-700 cursor-pointer">
+                        Send me emails with tips on how to find talent that fits
+                        my needs.
+                      </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="agreeTerms"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="mt-0.5 border-gray-300 focus-visible:ring-ring data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="text-gray-700 cursor-pointer">
+                        Yes, I understand and agree to the{" "}
+                        <Link href="/terms" legacyBehavior>
+                          <a className="font-medium text-green hover:text-green/80 hover:underline">
+                            User Agreement
+                          </a>
+                        </Link>{" "}
+                        and{" "}
+                        <Link href="/privacy" legacyBehavior>
+                          <a className="font-medium text-green hover:text-green/80 hover:underline">
+                            Privacy Policy
+                          </a>
+                        </Link>
+                        .
+                      </FormLabel>
+                      <FormMessage className="!mt-1.5" />
+                    </div>
+                  </FormItem>
+                )}
+              />
+
               <Button
                 type="submit"
                 className="w-full py-3 text-base font-semibold active:scale-[0.98]"
-                // Default variant of shadcn/ui Button will use --primary (your green)
-                // and --primary-foreground for text
+                disabled={form.formState.isSubmitting}
               >
-                Create my account
+                <Link href="/OnboardingCompany">
+                  {form.formState.isSubmitting
+                    ? "Creating Account..."
+                    : "Create my account"}
+                </Link>
               </Button>
-            </div>
-          </form>
+            </form>
+          </Form>
         </div>
       </div>
     </div>

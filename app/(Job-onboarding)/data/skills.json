@@ -1,0 +1,63 @@
+{
+  "web-mobile-software-dev": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "HTML5",
+    "CSS3",
+    "React Native",
+    "PostgreSQL",
+    "MongoDB",
+    "REST APIs",
+    "GraphQL",
+    "Vue.js",
+    "Angular",
+    "Docker",
+    "AWS"
+  ],
+  "design-creative": [
+    "Figma",
+    "Adobe XD",
+    "UI Design",
+    "UX Design",
+    "User Research",
+    "Prototyping",
+    "Adobe Photoshop",
+    "Adobe Illustrator",
+    "Logo Design",
+    "Brand Identity"
+  ],
+  "data-science-analytics": [
+    "Python",
+    "R",
+    "SQL",
+    "Tableau",
+    "Power BI",
+    "Machine Learning",
+    "Data Modeling",
+    "Statistics",
+    "Pandas",
+    "Scikit-learn"
+  ],
+  "accounting-consulting": [
+    "QuickBooks",
+    "Xero",
+    "Bookkeeping",
+    "Financial Reporting",
+    "Tax Preparation",
+    "Excel",
+    "Financial Analysis",
+    "Auditing",
+    "Payroll"
+  ],
+  "sales-marketing": [
+    "SEO",
+    "Content Marketing",
+    "Google Analytics",
+    "Social Media Marketing",
+    "Lead Generation",
+    "Email Marketing",
+    "Marketing Strategy"
+  ]
+}
